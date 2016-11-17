@@ -6,8 +6,12 @@ sampleRate = float(44100)
 volume = 1
 bitDepth = 32767
 
+# denotes which notes are loaded and saved
+notes = [C4, CS4, D4, DS4, E4, F4, FS4, G4, GS4, A4, AS4, B4, C5]
+
 # defining scales
-cMajor = [C4, CS4, D4, DS4, E4, F4, FS4, G4, GS4, A4, AS4, B4, C5]
+cMajor = [C4, D4, E4, F4, G4, A4, B4, C5]
+
 
 class Note:
 
