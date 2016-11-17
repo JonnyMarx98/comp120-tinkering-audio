@@ -1,4 +1,4 @@
-import wave, struct, math, winsound
+import wave, struct, math
 from noteFrequencies import *
 
 sampleLength = 44100/2

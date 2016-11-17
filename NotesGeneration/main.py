@@ -1,4 +1,5 @@
 from notes import *
+import winsound
 
 
 # function to play note (takes string for note name)
