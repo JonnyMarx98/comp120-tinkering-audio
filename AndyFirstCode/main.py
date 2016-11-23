@@ -2,6 +2,7 @@ import wave, struct
 
 noise = wave.open('noise2.wav', 'r')
 length = noise.getnframes()
+params = noise.getparams()
 framerate = noise.getframerate()
 halfwave = 0
 waveStart = 0
@@ -19,3 +20,5 @@ for i in xrange(0, length):
             else:
                 waveStart = i
             halfwave += 1
+
+print params
