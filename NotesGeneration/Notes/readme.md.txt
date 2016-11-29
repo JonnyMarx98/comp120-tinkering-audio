@@ -1,1 +1,0 @@
-This folder is where the note sound files save to, do not delete or re-name
