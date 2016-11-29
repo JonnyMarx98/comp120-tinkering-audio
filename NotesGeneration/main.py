@@ -12,20 +12,17 @@ def play(note, identifyer):
 # play(RandomNote)
 melody = []
 chorus = []
-# set this to procedurally generate rhythm
-# total bar length = 2, split up randomly taking 1/2, 1/4, 1/8, 1/16, 1/32 and append to list
-# make sure it doesn't go over minus
-# randomBeat = random.randint(2, 4, 8, 16, 32)
-# print 1/randomBeat
-notelength = [4, 2, 4, 4, 2, 2, 16, 16, 8, 4, 4, 8, 4, 2, 4, 4, 4, 8, 8]
+notemarker = 0
 
-for i in xrange(len(notelength)):
-    samplelength = 44100/(notelength[i])
-    noteChoice = notegen()
-    noteInput = (noteChoice, notes[noteChoice])
-    print noteInput
-    Note(noteInput, sampleRate, samplelength, bitDepth, volume, ('melody' + str(i)))
-    melody.append(noteChoice)
+for i in xrange(2):
+    for i in xrange(8):
+        notemarker += 1
+        samplelength = 44100 / (i + 1)
+        noteChoice = notegen()
+        noteInput = (noteChoice, notes[noteChoice])
+        print noteInput
+        Note(noteInput, sampleRate, samplelength, bitDepth, volume, ('melody' + str(notemarker)))
+        melody.append(noteChoice)
 
 for i in xrange(8):
     samplelength = 44100 / 16
@@ -37,15 +34,15 @@ for i in xrange(8):
 
 while True:
 
-    for i in xrange(2):
+    for i in xrange(4):
         print 'melody'
         j = 0
         for pitch in melody:
-            play(pitch, ('melody' + str(j)))
             j += 1
+            play(pitch, ('melody' + str(j)))
         j = 0
 
-    for i in xrange(2):
+    for i in xrange(3):
         for times in xrange(3):
             print 'chorus'
             for pitch in chorus:
