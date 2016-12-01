@@ -1,14 +1,15 @@
 import wave, struct, math, random
 from noteFrequencies import *
 
+
 sampleLength = 44100/16
 sampleRate = float(44100)
 volume = 1
 bitDepth = 32767
-
 notePrefix = ['C', 'CS', 'D', 'DS', 'E', 'F', 'FS', 'G', 'GS', 'A', 'AS', 'B']
 fSharpMinor = ['FS', 'GS', 'A', 'B', 'CS', 'D', 'E']
 CMajor = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
+
 
 def notegen():
     prefixChoice = random.randint(0, 11)
@@ -16,8 +17,27 @@ def notegen():
 
     return notePrefix[prefixChoice] + str(4)
 
-class Note:
+soundparams = (2, 2, sampleRate, sampleLength*random.randint(2, 5), 'NONE', 'Not compressed')
+noise_out = wave.open('melody.wav', 'w')
+noise_out.setparams(soundparams)
+values = []
 
+def savesound():
+    noise_out.close()
+
+
+def randomnote():
+    noteChoice = notegen()
+    for i in range(0, soundparams[3]):
+        value = math.sin(2.0 * math.pi * notes[noteChoice] * (i / soundparams[2])) * (volume * bitDepth)
+        packaged_value = struct.pack('h', value)
+
+        for j in xrange(0, soundparams[0]):
+            values.append(packaged_value)
+    value_str = ''.join(values)
+    noise_out.writeframes(value_str)
+
+class Note:
     def __init__(self, (name, frequency), samplerate, samplelength, bitdepth, volume, identifyer):
         #self.frequency = frequency
         self.note = wave.open('Notes/' + str(name) + '_' + identifyer + '.wav', 'w')
@@ -37,3 +57,5 @@ class Note:
             self.note.writeframes(packed_value)
 
         self.note.close()
+
+
