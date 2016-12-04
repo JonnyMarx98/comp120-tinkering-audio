@@ -18,24 +18,50 @@ def notegen():
     return notePrefix[prefixChoice] + str(4)
 
 soundparams = (2, 2, sampleRate, sampleLength*random.randint(2, 5), 'NONE', 'Not compressed')
-noise_out = wave.open('melody.wav', 'w')
+soundparams2 = (2, 2, sampleRate, sampleLength*random.randint(2, 5), 'NONE', 'Not compressed')
+
+noise_out = wave.open('melody1.wav', 'w')
+noise_out2 = wave.open('melody2.wav', 'w')
+cool_noise_out = wave.open('CoolPlaneSound.wav', 'w')
+
 noise_out.setparams(soundparams)
+noise_out2.setparams(soundparams2)
+cool_noise_out.setparams(soundparams)
+
 values = []
+values2 = []
+cool_values = []
 
-def savesound():
-    noise_out.close()
+def savesound(noise):
+    noise.close()
 
 
-def randomnote():
+def randomnote(identifier, noise):
     noteChoice = notegen()
     for i in range(0, soundparams[3]):
         value = math.sin(2.0 * math.pi * notes[noteChoice] * (i / soundparams[2])) * (volume * bitDepth)
         packaged_value = struct.pack('h', value)
 
         for j in xrange(0, soundparams[0]):
-            values.append(packaged_value)
-    value_str = ''.join(values)
-    noise_out.writeframes(value_str)
+            identifier.append(packaged_value)
+    value_str = ''.join(identifier)
+    noise.writeframes(value_str)
+
+
+def cool_plane_sound():
+    loopcount = 0
+    melody1 = enumerate(values)
+    for index, val in melody1:
+        if loopcount < 1000:
+            loopcount += 1
+            unpacked_values = struct.unpack('h', val)
+            unpacked_ints = reduce(lambda rst, d: rst * 10 + d, (unpacked_values))
+            packaged_value = struct.pack('h', unpacked_ints)
+            for j in xrange(0, soundparams[0]):
+                cool_values.append(packaged_value)
+            value_str = ''.join(cool_values)
+            cool_noise_out.writeframes(value_str)
+
 
 class Note:
     def __init__(self, (name, frequency), samplerate, samplelength, bitdepth, volume, identifyer):
@@ -57,5 +83,6 @@ class Note:
             self.note.writeframes(packed_value)
 
         self.note.close()
+
 
 
