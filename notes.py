@@ -26,6 +26,7 @@ sound_params2 = (2, 2, sampleRate, sampleLength*random.randint(2, 5), 'NONE', 'N
 noise_out = wave.open('melody1.wav', 'w')
 noise_out2 = wave.open('melody2.wav', 'w')
 cool_noise_out = wave.open('CoolPlaneSound.wav', 'w')
+added_noise_out = wave.open('AddedMelody.wav', 'w')
 
 noise_out.setparams(sound_params)
 noise_out2.setparams(sound_params2)
@@ -79,6 +80,19 @@ def echo(list):
             echo_value = i + (list[count - 10000] * 0.4)
         echo_list.append(echo_value)
     return new_list
+
+
+def add_lists(list1, list2):
+    """Add list function, currently not working"""
+    combined_list = []
+    if len(list1) < len(list2):
+        combined_list_len = len(list1)
+    else:
+        combined_list_len = len(list2)
+    for i in xrange(0, combined_list_len):
+        combined_list.append(list1[i] + list2[i])
+    
+    return combined_list
 
 
 class Note:

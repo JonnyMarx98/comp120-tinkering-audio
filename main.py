@@ -21,6 +21,13 @@ melody = []
 chorus = []
 
 
+def make_added_song(list1, list2):
+    """Make added song function, currently not working"""
+    combined_list = add_lists(list1, list2)
+    value_str = ''.join(combined_list)
+    added_noise.writeframes(value_str)
+
+
 def generate_song(melody_list, chorus_list):
 
     note_marker = 0
@@ -29,7 +36,7 @@ def generate_song(melody_list, chorus_list):
         for i in xrange(8):
             note_marker += 1
             sample_length = 44100 / (i + 1)
-            note_choice = notegen()
+            note_choice = note_gen()
             note_input = (note_choice, notes[note_choice])
             print note_input
             Note(note_input, sampleRate, sample_length, bitDepth, ('melody' + str(note_marker)))
@@ -37,7 +44,7 @@ def generate_song(melody_list, chorus_list):
 
     for i in xrange(8):
         sample_length = 44100 / 16
-        note_choice = notegen()
+        note_choice = note_gen()
         note_input = (note_choice, notes[note_choice])
         print note_input
         Note(note_input, sampleRate, sample_length, bitDepth, 'chorus')
@@ -75,9 +82,9 @@ def two_key():
 
 def return_key():
 
-    print 'melodys saved'
     save_sound(noise_out)
     save_sound(noise_out2)
+    print 'melodys saved'
 
 
 def i_key():
