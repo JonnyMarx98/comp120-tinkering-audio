@@ -1,16 +1,20 @@
 from notes import *
 from noteFrequencies import *
-import winsound, wave, struct, sys, pygame,random
+import winsound
+import wave
+import struct
+import sys
+import pygame
+import random
 from pygame.locals import *
-from keypresses import *
 
 
 pygame.init()
 
 
-def play(note, identifyer):
+def play(note, identifier):
 
-    winsound.PlaySound(str('Notes/' + str(note) + '_' + identifyer + '.wav'), winsound.SND_FILENAME)
+    winsound.PlaySound(str('Notes/' + str(note) + '_' + identifier + '.wav'), winsound.SND_FILENAME)
 
 # initialising the arrays to save the notes to
 melody = []
@@ -19,18 +23,17 @@ chorus = []
 
 def generate_song(melody_list, chorus_list):
 
-    notemarker = 0
+    note_marker = 0
 
     for i in xrange(2):
         for i in xrange(8):
-            notemarker += 1
+            note_marker += 1
             sample_length = 44100 / (i + 1)
             note_choice = notegen()
             note_input = (note_choice, notes[note_choice])
             print note_input
-            Note(note_input, sampleRate, sample_length, bitDepth, ('melody' + str(notemarker)))
+            Note(note_input, sampleRate, sample_length, bitDepth, ('melody' + str(note_marker)))
             melody_list.append(note_choice)
-
 
     for i in xrange(8):
         sample_length = 44100 / 16
@@ -53,7 +56,7 @@ def g_key():
 
 def c_key():
 
-    randomnote(values, noise_out)
+    random_note(values, noise_out)
     cool_plane_sound()
     print 'CoolPlaneSound.wav saved'
     winsound.PlaySound('CoolPlaneSound.wav', winsound.SND_FILENAME)
@@ -61,20 +64,20 @@ def c_key():
 
 def one_key():
     print "added random notes to melody1.wav"
-    randomnote(values, noise_out)
+    random_note(values, noise_out)
 
 
 def two_key():
 
     print "added random notes to melody2.wav"
-    randomnote(values2, noise_out2)
+    random_note(values2, noise_out2)
 
 
 def return_key():
 
     print 'melodys saved'
-    savesound(noise_out)
-    savesound(noise_out2)
+    save_sound(noise_out)
+    save_sound(noise_out2)
 
 
 def i_key():
@@ -144,9 +147,9 @@ while True:
     for event in pygame.event.get():
 
         if event.type == pygame.KEYDOWN:
-            keytype = pygame.key.name(event.key)
+            key_type = pygame.key.name(event.key)
 
-            if keytype in controls:
-                controls[keytype]()
+            if key_type in controls:
+                controls[key_type]()
 
 
